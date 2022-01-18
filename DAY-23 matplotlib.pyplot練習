@@ -1,0 +1,56 @@
+import matplotlib.pyplot as plt
+listx= [0,5,6,7,12,20]
+listy= [20,26,46,56,78,60]
+plt.plot(listx, listy)
+# 設定線條及圖例,需與 plt.legend()搭配使用.lw是線的寬度 ls是線的樣式
+plt.plot(listx, listy, color="red", lw="2.0", ls="--", label="label")
+# 設定圖表標題,座標標題 fonytsize 如果不設定,大小會一樣
+plt.title("chart title", fontsize=20)
+plt.xlabel("x-label", fontsize=14)
+plt.ylabel("y-label", fontsize=14)
+# 設定座標範圍
+plt.xlim(0,20)
+plt.ylim(0,100)
+plt.legend()
+plt.show()
+----------------------------------------------------------------
+# 繪製散佈圖
+listx = [31,15,20,25,12,18,45,21,33,5,18,22,37,42,10]
+listy = [68,20,61,32,45,56,10,18,70,64,43,66,19,77,21]
+scale = [x**3 for x in [5,4,2,6,7,1,8,9,2,3,2,4,5,7,2]]
+# 上述 scale 的表示法,等同於下述 3 行
+# scale=[]
+# for x in [5,4,2,6,7,1,8,9,2,3,2,4,5,7,2]:
+#     scale.append(x**3)
+plt.scatter(listx, listy, c='r', s=scale, marker='o', alpha=0.5)
+# 繪製第二組散佈圖
+listx2 = [18,70,64,43,66,19,77,21,21,20,61,18,22,37,42]
+listy2 = [68,33,5,32,45,56,10,31,15,20,25,12,18,45,10]
+scale2 = [x**2 for x in [5,11,7,6,7,1,8,9,10,3,8,3,9,7,5]]
+plt.scatter(listx2, listy2, c='b', s=scale2, marker='o', alpha=0.5)
+plt.xlim(0,50)
+plt.ylim(0,80)
+plt.show()
+------------------------------------------------------------------
+# 繪製圓餅圖
+sizes=[25, 30, 15, 10]
+labels=["北部", "南部", "中部", "東部"]
+colors=["red", "blue", "green", "yellow"]
+explode=(0, 0, 0.2, 0)
+# 將原始資料結合到標籤一併顯示
+labs = [labels[i]+str(sizes[i]) for i in range(len(labels))]
+plt.pie(sizes,
+    explode = explode,
+    labels=labels,
+    colors=colors,
+    labeldistance=1.1,
+    autopct= "%2.1f%%",
+    pctdistance=0.6,
+    shadow=True,
+    startangle=90)
+# 設定中文字型及負號正確顯示
+plt.rcParams["font.sans-serif"] = "Microsoft JhengHei"
+# 也可以設mingliu 或 DFKai-SB
+plt.rcParams["axes.unicode_minus"] = False
+plt.legend() # 顯示圖例
+plt.show()
