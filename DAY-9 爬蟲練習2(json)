@@ -23,3 +23,25 @@ with open("data3.txt","w", encoding="utf-8") as file:
     for item in items:
         file.write(item["post"]["title"]+"\n")
         print(item["post"]["title"])
+-----------------------------------------------------------------------------
+執行結果:
+8 Things Every Person Should Do Before 8 A.M.
+8 High-Income Skills You Can Learn In Your Spare Time
+10 Things Good Men Never Do In Relationships
+How To Make Your First NFT In 10 Minutes
+20 Things To Do Instead of Scrolling Through Your Phone
+5 Books I Have Recommended Over 100 Times
+I Did 2-Minute Plank Every Day for 42 Days — Here’s What Happened        
+No, Not All Mass Shootings Are Terrorism
+Top DATA SCIENCE Cheat Sheets (ML, DL, Python, R, SQL, Maths & Statistics)
+Top 10 Crypto Gaming Projects + Bonus
+My Favorite (Legal) Psychedelic Products
+PHP Is Killing Python
+Why Elon Musk Fired His Long-Term Assistant Who Asked for A Raise        
+What I Gave Up To Leave America
+Top 8 potential airdrops to look out for
+The Captain’s Gambit: The crash of Allegheny Airlines flight 485
+9 Uncomfortable Truths You Should Accept Early in Life
+Six Reasons to Wake up Early, Even If You Hate It
+The Best VS Code Themes 2022�🤩
+API Architecture   —  Best Practices for designing REST APIs
