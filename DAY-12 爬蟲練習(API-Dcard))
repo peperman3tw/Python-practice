@@ -1,0 +1,42 @@
+import requests as req
+import json
+import pandas as pd
+API= "https://www.dcard.tw/service/api/v2/forums"
+respones=req.get(API)
+respones=respones.text
+data = json.loads(respones)
+
+df = pd.DataFrame(data)
+# print(df.head(3))  印出前三則
+# print(df.columns)  查看所有 columns 
+# Index(['id', 'alias', 'name', 'description', 'subscriptionCount', 'subscribed',
+#        'read', 'createdAt', 'updatedAt', 'canPost', 'ignorePost', 'invisible',
+#        'isSchool', 'fullyAnonymous', 'canUseNickname', 'postThumbnail',
+#        'shouldCategorized', 'shouldPostCategorized', 'hasPostCategories',
+#        'titlePlaceholder', 'postTitlePlaceholder', 'ipCountryCondition',
+#        'subcategories', 'topics', 'nsfw', 'mediaThreshold', 'limitCountries',
+#        'limitStage', 'availableLayouts', 'postCount', 'favorite',
+#        'enablePrivateMessage', 'restrictIdentityOnComment',
+#        'enableSelectedPosts', 'displaySelectedPostsTab',
+#        'allowModManageSelectedPosts', 'heroImage', 'logo'],
+#       dtype='object')
+df1=df[["name","isSchool","description","subscriptionCount"]]
+df1.columns=["看板名稱","學校","描述","訂閱人數"]
+print(df1)
+
+-------------------------------------------------------------------------------------
+執行結果:
+            看板名稱     學校                                                 描述                                      訂閱人數
+0         午夜實驗室    False  午夜實驗室10/6、10/7即將在華山登場！這裏提供大家交流活動資訊與討論，請大家要遵守 D...             1692
+1           時光膠囊    False  Dcard 九週年最終章！告別動盪不安的 2020，說好了，2021 我們一起活得更努力！請...                  4290
+2             母親節    False                              Dcard 母親節限定板，告訴媽媽我愛妳！                               364
+3       聖誕CiaoCiao    False           期間限定開啟！只要是和聖誕節有關的事情，或是和「禮物」有關的東西通通都來分享吧！         16966
+4             父親節    False       Dcard 父親節特輯，上傳爸爸帥照，寫下真摯文字，一起謝謝我們心中的 「鋼鐵人老爸」。              357
+..          ...    ...                                                ...    ...
+553            手遊     False                         本板為手遊板，討論主旨為一切與手遊有關之事物與話題。                      1332
+554          天堂 W     False                   本板為天堂 W 板，討論主旨為一切與天堂 W 有關之事物與話題。                       124
+555       暗黑破壞神    False                   本板為暗黑破壞神板，討論主旨為一切與暗黑破壞神有關之事物與話題。                   119
+556  JoJo 的奇妙冒險    False  本板為 JoJo 板，歡迎討論主旨為一切與 JoJo 的奇妙冒險有關之事物與話題。發文前請記...                 652
+557         Webtoon    False  本板為 Webtoon 板，歡迎討論主旨為一切與 Webtoon 網路漫畫有關之事物與話題。...                      229
+
+[558 rows x 4 columns]
