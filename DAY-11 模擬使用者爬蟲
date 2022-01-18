@@ -1,0 +1,59 @@
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+import bs4
+import pandas as pd
+
+respones= webdriver.Chrome(ChromeDriverManager().install()) # 安裝Chrome驅動程式及建立Chrome物件
+respones.get("https://old.accupass.com/search/r/0/0/0/0/4/0/00010101/99991231?q=python")
+
+soup=bs4.BeautifulSoup(respones.page_source, "html.parser")
+
+acticvities=soup.find_all("div",{"class":"apcss-activity-card ng-isolate-scope"})
+
+result=[]
+for activity in acticvities:
+    # 活動名稱
+    title=activity.find("h3",{"class":"apcss-activity-card-title ng-binding"}).getText().strip()
+    # 活動時間
+    time=activity.find("p",{"class":"apcss-activity-card-date ng-binding"}).getText().strip()
+    # 喜歡人數
+    like=activity.find("span",{"class":"apcss-activity-card-like ng-binding"}).getText().strip().replace(" 人喜歡", "")
+    # 售票狀態
+    status=activity.find("a",{"class":"apcss-btn apcss-btn-block ng-binding activity-card-status-ready"})
+    if status ==None:
+        status=activity.find("a",{"class":"apcss-btn apcss-btn-block ng-binding activity-card-status-end"})
+    result.append((title, time, int(like), status.getText()))
+
+data=pd.DataFrame(result, columns=["活動名稱", "活動時間", "喜歡人數", "售票狀態"])
+print(data)
+# respones.quit()
+
+----------------------------------------------------------------------------------------------------------
+執行結果:
+活動名稱  ... 售票狀態
+0      Python+JAVA大數據人工智慧培訓班(百萬年薪專業技能保證班)美國國際GIIM專業證照  ...  熱銷中
+1                                  零基礎學Python：資料分析實戰班  ...   
+熱銷中
+2   【第二屆】Python+JAVA大數據人工智慧培訓班(百萬年薪專業技能保證班)美國
+國際GII...  ...  熱銷中
+3    產業基礎程式設計課程說明會   (C/C++/Python/Javascript/Kotlin)  ...  
+熱銷中
+4   【第七屆】Python+JAVA大數據人工智慧培訓班(百萬年薪專業技能保證班)美國
+國際GII...  ...  熱銷中
+5      【線上課程】Python 實戰題庫特訓營｜扎實資料科學程式力，從基礎到進 
+階掌握語法實現的能力  ...  熱銷中
+6                                      Python 資料科學教戰營  ...  熱銷中
+4   【第七屆】Python+JAVA大數據人工智慧培訓班(百萬年薪專業技能保證班)美國
+國際GII...  ...  熱銷中
+5      【線上課程】Python 實戰題庫特訓營｜扎實資料科學程式力，從基礎到進 
+階掌握語法實現的能力  ...  熱銷中
+6                                      Python 資料科學教戰營  ...  熱銷中
+
+7   額滿候補中【PYTHON 核心能力-微軟 MTA 國際認證營】零基礎輕鬆入門，近年
+需求量最大...  ...  熱銷中
+8                            【免費說明會】初學者首選-Python程式語言✨  ...  熱銷中
+9   第 10 期 Python 證券投資分析 & 股票聊天機器人入門共學營【8 + 4 週 24...  ...  熱銷中
+10                    APCS 檢定班 免費諮詢 - 台北場 - Tedu 達內教育  ... 
+ 熱銷中
+11                         Python與物聯網MicroPython應用實務班  ...  已完
+售
