@@ -1,0 +1,36 @@
+import urllib.request as req
+import os
+import json
+import bs4
+import requests
+# 賴個人原創貼圖網址
+
+url=input("請貼上想要下載的LINE貼圖網頁網址:")
+request=req.Request(url, headers={
+    "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36"
+})
+with req.urlopen(request) as response:
+    data=response.read().decode("utf-8")
+root=bs4.BeautifulSoup(data, "html.parser")
+# 建立目錄儲存圖片
+
+images_dir="line_image/"+root.find("div", class_="mdCMN38Item0lHead").text.replace("\n","")
+if not os.path.exists(images_dir):
+    os.mkdir(images_dir)
+name=root.find("div", class_="mdCMN38Item0lHead").text.replace("\n","")
+print("---------【建立LINE貼圖資料夾】---------")
+print("-------【開始下載"+ name +"貼圖】-------")
+datas=root.find_all("li", class_="mdCMN09Li FnStickerPreviewItem")
+for data in datas:
+    imginfo=json.loads(data.get("data-preview"))
+    id=imginfo["id"]
+    pic=imginfo["staticUrl"]
+    imgfile=requests.get(pic)
+    # 儲存的路徑和主檔名
+    full_path=os.path.join(images_dir,id)
+    # print(full_path)
+    # 儲存檔案
+    with open(full_path + ".png", "wb") as file:
+        file.write(imgfile.content)
+    print(full_path + ".png")
+print("--------------【下載完成】--------------")
