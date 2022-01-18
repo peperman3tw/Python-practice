@@ -30,3 +30,69 @@ x="Hello"
 print(x)
 x={3,5,6} # 集合 Set
 print(x)
+
+# 數字運算
+x=3+6 # 加減法
+print(x)
+x=3*6 # 乘法
+print(x)
+x=7/6 # 除法 除到小數點
+print(x)
+x=7//6 # 整數除法 不會到小數點
+print(x)
+x=2**3 # 次方運算 2的3次方
+print(x)
+x=2**0.5 #開根號 2的開根號
+print(x)
+x=7%3 # 取餘數
+print(x)
+x=2+3
+print(x) 
+x=x+1 # 將變數中的數字+1
+print(x)
+x+=2 # y加減乘除2
+print(x)
+# 字串運算
+# 字串會對內部的字元編號(索引)從0開始算起
+s="hell\"o" # \消除衝突
+print(s)
+s="""hello #可以任意換行
+world"""
+print(s)
+s="holle"*3+"world"
+print(s)
+# 字串會對內部的字元編號(索引)從0開始算起
+s="hello"
+print(s[2])
+print(s[1:4])
+print(s[1:]) # 取開頭之後全部
+print(s[:4]) # 從開頭取至結尾
+
+# 集合的運算
+s1={3,4,5}
+print(3 in s1) # 告訴我 3 有沒有在 s1集合中 有Ture 無False
+print(10 not in s1)
+s1={3,4,5}
+s2={4,5,6,7}
+s3=s1&s2 # 交集: 取兩個集合中，相同的資料
+s3=s1|s2 # 聯集: 取兩個極盒中所有的資料，但不重複取
+s3=s1-s2 # 差集: 從s1中，減去和 s2 重複的部分
+s3=s1^s2 #反交集: 取兩個集合中, 不重複的部分
+print(s3)
+s=set("hello") # 把字串中的字母拆解成集和: set(字串)
+print(s)
+print("h" in s)
+# 字典的運算 key:value 配對
+dic={"apple":"蘋果","bug":"蟲蟲"}
+dic["apple"]="小蘋果"
+print(dic["apple"])
+dic={"apple":"蘋果","bug":"蟲蟲"}
+print("apple" in dic) # 判斷 key 是否存在
+print("apple" not in dic)
+print(dic)
+
+del dic["apple"] # 刪除字典中的鍵值對 (key-value pair)
+print(dic)
+
+dic={x:x*2 for x in [3,4,5,]}  # [3,4,5]這個是列表 # 從列表的資料產生字典
+print(dic)
