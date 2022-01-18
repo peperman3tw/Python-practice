@@ -1,0 +1,30 @@
+import requests as req
+import bs4
+url="https://www.taiwanlottery.com.tw/index_new.aspx"
+response=req.get(url, headers={
+    "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36"
+})
+root=bs4.BeautifulSoup(response.text,"html.parser")
+data=root.find_all("div",class_="contents_box02")[2]
+# 開獎日期/期數
+time=data.find("div", class_="contents_mine_tx02")
+print("大樂透:",time.text)
+# 開獎號碼
+nums=data.find_all("div", class_="ball_tx ball_yellow")
+print("開獎號碼:", end="")
+for i in range(0,6):
+    print(nums[i].text, end="")
+# 大小順序
+print("\n大小順序:", end="")
+for i in range(6,12):
+    print(nums[i].text, end="")
+# 第二區
+sce=data.find("div", class_="ball_red")
+print("\n第二區號碼:", sce.text)
+
+-------------------------------------------------------
+執行結果:
+大樂透: 111/1/14 第111000004期 開獎結果
+開獎號碼:24 05 26 35 14 13
+大小順序:05 13 14 24 26 35
+第二區號碼: 39
