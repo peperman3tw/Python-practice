@@ -1,0 +1,58 @@
+import openpyxl
+# # 建立一個工作簿
+# workbook=openpyxl.Workbook()
+# # 取得第一個工作表
+# sheet=workbook.worksheets[0]
+# # 以儲存格位置寫入資料
+# sheet["A1"] = "一年甲班"
+# # 以串列寫入資料,寫入'列'
+# listtitle=["座號","姓名","國文","英文","數學"]
+# sheet.append(listtitle)
+# listdatas=[[1, "葉大雄", 64, 63, 40],
+#            [2, "陳靜香", 85, 90, 87],
+#            [3, "王聰明", 92, 90, 95]]
+# for listdata in listdatas:
+#     sheet.append(listdata)
+# #儲存檔案
+# workbook.save("test.xlsx")
+
+# 檔案讀取及編輯
+# workbook=openpyxl.load_workbook("test.xlsx")
+# # 取得第一個工作表
+# sheet=workbook.worksheets[0]
+# # 取得指定儲存格
+# print(sheet["A1"], sheet["A1"].value)
+# # 取得總 行/列 數
+# print("總 行/列 數:",sheet.max_row, sheet.max_column)
+# # 顯示 cell 資料
+# for i in range(1, sheet.max_row+1):
+#     for j in range(1, sheet.max_column+1):
+#         print(sheet.cell(row=i, column=j).value, end="    ")
+#     print()
+# # 變更 A1 欄位的值
+# sheet["A1"]="二年甲班"
+# workbook.save("test.xlsx")
+   
+# 建立一個工作簿     
+workbook=openpyxl.Workbook()   
+# 取得第 1 個工作表
+sheet = workbook.worksheets[0]
+# 以儲存格位置寫入資料
+sheet['A1'] = '一年甲班'
+# 以串列寫入資料，寫入"列"
+listtitle=['座號', '姓名', '國文', '英文', '數學']
+sheet.append(listtitle)  
+listdatas=[[1, '葉大雄', 65, 62, 40],
+           [2, '陳靜香', 85, 90, 87],
+           [3, '王聰明', 92, 90, 95]]
+# 逐列寫入
+for listdata in listdatas:
+    sheet.append(listdata)
+
+# 逐行寫入
+for j in range(1, 5):    
+    for i in range(7, 12):
+         sheet.cell(row=i, column=j).value = j 
+# 儲存檔案   
+workbook.save('test1.xlsx')
+workbook.close()
