@@ -1,0 +1,34 @@
+# 載入模組
+import urllib.request as req
+import bs4
+def getdata(): # 包裝成函式
+    url=input("請輸入抓取PTT網址:")
+    pages=int(input("請輸入抓取頁數:"))
+    kw=input("請輸入關鍵字:")
+    n=1
+    while n <= pages:
+        print("------【正在抓取第"+str(n)+"頁資料】------")  
+
+        # 抓取網站
+        request=req.Request(url, headers={
+            "cookie":"over18=1",
+            "user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36"
+        })
+        with req.urlopen(request) as response:
+            data=response.read().decode("utf-8")
+        root=bs4.BeautifulSoup(data, "html.parser") # 解析 Html 格式
+
+        # 抓取文章資訊
+        block=root.find_all("div", class_="title")
+        for title in block:
+            if title.a != None and kw in title.a.text: # 使用title.a.get_text()指抓取文字
+                html = "https://www.ptt.cc"+ title.a["href"]
+                print(title.a.string)
+                print(html)
+
+        # 抓取下一頁資訊
+        next=root.find_all("a",class_="btn wide")
+        data=next[1]
+        url=str("https://www.ptt.cc"+data["href"]) 
+        n+=1   
+getdata() # 呼叫函式
