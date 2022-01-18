@@ -1,0 +1,45 @@
+import matplotlib.pyplot as plt
+# 設定圖書分類及銷售額比例
+listx=["商業理財","文學小說","藝術設計","人文科普","語言電腦","心靈養生","生活風格","親子共享"]
+listm=[0.14,0.16,0.08,0.13,0.16,0.12,0.17,0.05]
+listg=[0.1,0.19,0.06,0.1,0.13,0.13,0.2,0.1]
+# 將比例成以 100
+listm=[x*100 for x in listm]
+listg=[x*100 for x in listg]
+# 設定圖表尺寸大小及使用字型
+plt.figure(figsize=(12,9))
+plt.rcParams["font.sans-serif"] = "Microsoft JhengHei"
+plt.rcParams["axes.unicode_minus"] = False
+
+# 男性銷售圓餅圖
+plt.subplot(221)
+plt.title("圖書分類銷售比例-男",fontsize=16)
+plt.pie(listm, labels=listx, autopct="%2.1f%%")
+# 女性銷售圓餅圖
+plt.subplot(222)
+plt.title("圖書分類銷售比例-女",fontsize=16)
+plt.pie(listg, labels=listx, autopct="%2.1f%%")
+# 男女銷售長條圖
+plt.subplot(223)
+plt.title("圖書分類銷售",fontsize=16)
+plt.xlabel("圖書分類", fontsize=12)
+plt.ylabel("銷售比例(%)", fontsize=12)
+width=0.4
+listx1=[x- width/2 for x in range(len(listx))]
+listx2=[x+ width/2 for x in range(len(listx))]
+plt.bar(listx1, listm, width, label="男")
+plt.bar(listx2, listg, width, label="女")
+plt.xticks(range(len(listx)), labels=listx, rotation=45)
+plt.legend()
+# 男女銷售折線圖
+plt.subplot(224)
+plt.title("圖書分類銷售",fontsize=16)
+plt.xlabel("圖書分類", fontsize=12)
+plt.ylabel("銷售比例(%)", fontsize=12)
+plt.plot(listx, listm, "g--s", label="男")
+plt.plot(listx, listg, "r--s", label="女")
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.legend()
+
+plt.show()
