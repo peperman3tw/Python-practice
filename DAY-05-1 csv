@@ -1,0 +1,50 @@
+import csv
+with open("test.csv","w", encoding="utf-8", newline="") as f:
+    # 建立 csv 檔寫入物件
+    writer=csv.writer(f)
+    # 寫入欄位及資訊
+    writer.writerow(["座號","姓名","國文","英文","數學"])
+    writer.writerow([1,"葉大雄" ,94, 93, 53])
+    writer.writerow([2,"陳靜香" ,90, 39, 90])
+    writer.writerow([3,"王聰明" ,99, 98 ,97])
+
+# 建立二維資料
+csvtable=[
+    ["座號","姓名","國文","英文","數學"],
+    [1,"葉大雄" ,94, 93, 53],                                                         # 一維資料:writerow
+    [2,"陳靜香" ,90, 39, 90],                                                         # 二維資料:writerows
+    [3,"王聰明" ,99, 98 ,97]
+]
+with open("test2.csv", "w" , encoding="utf-8", newline="") as file:
+    writer2=csv.writer(file)
+    writer2.writerows(csvtable) 
+
+# 將字典資料寫入 csv 檔案
+with open("test3.csv", "w" , encoding="utf-8", newline="") as csvfile:
+    # 定義欄位
+    filednames=["座號","姓名","國文","英文","數學"]
+    # 將字典寫入 csv 檔案
+    writer3=csv.DictWriter(csvfile, fieldnames=filednames)
+    # 寫入欄位名稱
+    writer3.writeheader()
+    # 寫入資料
+    writer3.writerow({"座號":1, "姓名":"葉大雄", "國文":94, "英文":93, "數學":53})
+    writer3.writerow({"座號":2, "姓名":"陳靜香", "國文":90, "英文":39, "數學":90})
+    writer3.writerow({"座號":3, "姓名":"王聰明", "國文":94, "英文":98, "數學":97})
+
+
+# 讀取 csv 檔案為字串資料
+with open("test.csv",encoding="utf-8", newline="") as csvfile:
+    # 讀取 csv 檔案內容
+    rows= csv.reader(csvfile)
+    # 用for迴圈顯示每一列
+    for row in rows:
+        print(row)
+
+# 讀取 csv 檔案為字典資料
+with open("test.csv",encoding="utf-8", newline="") as csvfile:
+    # 讀取 csv 檔案內容,將每一列轉成dictionary
+    rows= csv.DictReader(csvfile)
+    # 用for迴圈顯示每一列
+    for row in rows:
+        print(row["座號"], row["姓名"], row["國文"], row["英文"], row["數學"])
