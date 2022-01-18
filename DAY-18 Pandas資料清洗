@@ -1,0 +1,67 @@
+import pandas as pd
+# 讀取資料
+df = pd.read_csv('customer.csv')
+# # 空值的處理
+# print('各個欄位有空值的狀況:')
+# print(df.isnull().sum())
+# #any(axis=1) 指所有橫向(row) .sum()加總計次
+# print('有空值的記錄筆數:', df.isnull().any(axis=1).sum())
+# #any(axis=0) 指所有直向(column) .sum()加總計次
+# print('有空值的欄位數:', df.isnull().any(axis=0).sum()) 
+# print('列出age欄有空值的記錄:')
+# print(df[df['age'].isnull()])
+# print("列出area有空值的資料:")
+# print(df[df["area"].isnull()])
+
+# 空欄填值:fillna()
+df_sample=df.copy() # 複製
+df_sample["age"]=df_sample["age"].fillna(value=0)
+print(df_sample.head())
+
+# 填入指定值(ex.平均值)
+df_sample=df.copy() # 複製
+df_sample["age"]=df_sample["age"].fillna(value=df_sample["age"].mean())
+print(df_sample.head())
+
+# 前值往下填或後值往上填  前值下填(method="ffill") 後值上填(method="dfill")
+df_sample["gender"]=df_sample["gender"].fillna(method="ffill")
+df_sample["area"]=df_sample["area"].fillna(method="ffill")
+print(df_sample)
+
+# 刪除空值資料:dropna()
+print(df.dropna()) # 直接刪除不完整資料(有空值)
+
+# 去除重複資料:drop_duplicates()
+# 語法: df.drop_duplicates(subset=欄位, keep=保留選項, inplace=是否更新)
+#       keep:預設值"first"是第一筆,"last"是最後一筆
+#       inplace:設定是否更新資料,設定值是佈林值
+df_sample=df.copy() # 複製
+df_sample.drop_duplicates(subset="id", keep="first", inplace=True)
+print(df_sample)
+
+# 去除欄位中的空白
+df_sample["job"]=df_sample["job"].str.strip()
+df_sample["job"]=df_sample["job"].str.replace(" ","")
+print(df_sample)
+
+# 調整資料格式
+df_sample["age"]=df_sample["age"].astype("int32")
+print(df_sample.head())
+
+
+
+# 完整程式碼
+df = pd.read_csv('customer.csv')
+df_sample=df.copy() # 複製
+# 基本資料清洗
+df_sample["age"]=df_sample["age"].fillna(value=df_sample["age"].mean())
+df_sample["gender"]=df_sample["gender"].fillna(method="ffill")
+df_sample["area"]=df_sample["area"].fillna(method="ffill")
+# 刪除重複資料
+df_sample.drop_duplicates(subset="id", keep="first", inplace=True)
+# 去除欄位中的空白
+df_sample["job"]=df_sample["job"].str.strip()
+df_sample["job"]=df_sample["job"].str.replace(" ","")
+# 調整資料格式
+df_sample["age"]=df_sample["age"].astype("int32")
+print(df_sample)
