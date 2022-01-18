@@ -1,0 +1,33 @@
+# 儲存檔案
+# file=open("data.txt",mode="w",encoding="utf-8") # 開啟
+# file.write("hello File\nSecond Line\n測試中文") # 操作
+# file.close() # 關閉
+# 最佳實務寫法
+# with open("data.txt",mode="w",encoding="utf-8") as file:
+#     file.write("5\n4\n3")
+
+# 讀取檔案
+# 把檔案中的數字資料, 一行一行的讀取出來, 並計算總合
+# sum=0
+# with open("data.txt",mode="r",encoding="utf-8") as file:
+#     for line in file: # 一行一行讀取
+#         sum+=int(line) 
+# print(sum)
+
+# 使用 json 格式讀取 
+# import json
+# with open("config.json",mode="r",encoding="utf-8") as file:
+#     data=json.load(file) # data 是一個字典資料
+# print("name:",data["name"])
+# print("verson:",data["verson"])
+
+# 使用 json 覆寫檔案
+import json
+with open("config.json",mode="r",encoding="utf-8") as file:
+    data=json.load(file)
+data["name"]="new name立哲" #修改變數中的資料
+with open("config.json",mode="w",encoding="utf-8") as file:
+    json.dump(data, file)
+print(data)
+print("name:",data["name"])
+print("verson:",data["verson"])
