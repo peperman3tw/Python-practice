@@ -18,3 +18,8 @@ result=json.loads(result)
 items=result[0]["data"]["extendedFeedItems"]
 for item in items:
     print(item["post"]["title"])
+# 將資料寫入 data3.txt 檔案中
+with open("data3.txt","w", encoding="utf-8") as file:
+    for item in items:
+        file.write(item["post"]["title"]+"\n")
+        print(item["post"]["title"])
